@@ -27,7 +27,7 @@ struct APIStrings {
     
 }
 
-class ViewController: NSViewController, NSTextFieldDelegate {
+class ViewController: NSViewController, NSTextFieldDelegate, NSDatePickerCellDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var addressTextField: NSTextField!
@@ -37,9 +37,13 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var searchButton: NSButton!
     @IBOutlet weak var categoryPopUpButton: NSPopUpButton!
     
+    @IBOutlet weak var invalidAddressLabel: NSTextField!
+    @IBOutlet weak var invalidRadiusLabel: NSTextField!
+    @IBOutlet weak var invalidDateLabel: NSTextField!
+    
     var validAddress = false
-    var validRadius = true
-    var validDates = true
+    var validRadius = false
+    var validDates = false
     
     var eventsArray : [Event] = []
     var addressCoordinates : String?
@@ -49,7 +53,14 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addressTextField.delegate = self
+        self.radiusTextField.delegate = self
+        self.startingDatePicker.delegate = self
+        self.endDatePicker.delegate = self
         self.setupPopupButton()
+        
+        self.invalidAddressLabel.alphaValue = 0
+        self.invalidRadiusLabel.alphaValue = 0
+        self.invalidDateLabel.alphaValue = 0
         
         startingDatePicker.dateValue = today
         endDatePicker.dateValue = today.addDays(1)
@@ -211,6 +222,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
                                     dispatch_async(dispatch_get_main_queue()) {
                                         self.validAddress = true
                                         self.checkAllValid()
+                                        self.invalidAddressLabel.alphaValue = 0
                                     }
                                 }
                             }
@@ -220,6 +232,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
                             // No location results
                             self.validAddress = false
                             self.checkAllValid()
+                            self.invalidAddressLabel.alphaValue = 1
 
                         }
                     }
@@ -239,15 +252,26 @@ class ViewController: NSViewController, NSTextFieldDelegate {
         
     }
     
-    // MARK: NSTextFieldDelegate Methods
+    // MARK: NSTextFieldDelegate Method
     
     override func controlTextDidEndEditing(obj: NSNotification) {
+        
         if !self.addressTextField.stringValue.isEmpty {
             self.getGeocodeInBackground(self.addressTextField.stringValue)
         }
+        if !self.radiusTextField.stringValue.isEmpty {
+            self.checkRadius(self.radiusTextField.stringValue)
+        }
+
     }
     
+    // MARK: NSDatePickerDelegate Method
     
+    func datePickerCell(aDatePickerCell: NSDatePickerCell, validateProposedDateValue proposedDateValue: AutoreleasingUnsafeMutablePointer<NSDate?>, timeInterval proposedTimeInterval: UnsafeMutablePointer<NSTimeInterval>) {
+        
+        self.checkDates(self.startingDatePicker.dateValue, endDate: self.endDatePicker.dateValue)
+        
+    }
     
     // MARK: Helper Methods
     func setupPopupButton() {
@@ -290,6 +314,61 @@ class ViewController: NSViewController, NSTextFieldDelegate {
         var endString = dateFormatter.stringFromDate(end!)
         
         return startString + "00" + "-" + endString + "00"
+    }
+    
+    func checkDates(startDate : NSDate, endDate : NSDate) {
+                
+                if startDate.compare(endDate) == NSComparisonResult.OrderedDescending // If end date is before start
+                    ||
+                    startDate.compare(today) == NSComparisonResult.OrderedDescending // If start date is before today
+                    ||
+                    endDate.compare(today.addDays(28)) == NSComparisonResult.OrderedDescending // If end date is 28 days after today
+                    ||
+                    endDate.compare(today.addYears(1)) == NSComparisonResult.OrderedDescending // If end date is further than one year away from today
+                {
+                    self.invalidDateLabel.alphaValue = 1.0
+                    self.validDates = false
+                    self.checkAllValid()
+                }
+                    
+                else {
+                    
+                    self.invalidDateLabel.alphaValue = 0.0
+                    self.validDates = true
+                    self.checkAllValid()
+                }
+        
+    }
+    
+    func checkRadius(radius : String) {
+        
+        let numSet = NSCharacterSet.alphanumericCharacterSet()
+        let stringSet = NSCharacterSet(charactersInString: radius)
+        // Check if string is alphanumeric
+        if numSet.isSupersetOfSet(stringSet) {
+            
+            var radIntValue = radius.toInt()
+            
+            if radIntValue < 0 || radIntValue > 300 {
+                self.validRadius = false
+                self.checkAllValid()
+                self.invalidRadiusLabel.alphaValue = 1.0
+                
+            } else {
+                if !self.searchButton.enabled {
+                    self.invalidRadiusLabel.alphaValue = 0.0
+                    self.validRadius = true
+                    self.checkAllValid()
+                }
+                
+            }
+            
+        } else {
+            // String is not alphanumeric
+            self.validRadius = false
+            self.checkAllValid()
+        }
+        
     }
 
     

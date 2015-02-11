@@ -9,6 +9,9 @@
                 <outlet property="addressTextField" destination="GnV-k4-rcI" id="LmW-zo-jOH"/>
                 <outlet property="categoryPopUpButton" destination="h5j-QA-KLd" id="qVu-gt-62C"/>
                 <outlet property="endDatePicker" destination="wGA-c8-XM3" id="5MA-Jz-t8m"/>
+                <outlet property="invalidAddressLabel" destination="MsL-ow-qgK" id="bRj-fJ-pTC"/>
+                <outlet property="invalidDateLabel" destination="IFg-fr-KSh" id="7Dh-Ps-oHy"/>
+                <outlet property="invalidRadiusLabel" destination="Xrj-qB-miM" id="Y81-sZ-f5T"/>
                 <outlet property="radiusTextField" destination="ddc-uk-aaD" id="dNT-0b-sdP"/>
                 <outlet property="searchButton" destination="xhU-6z-5PZ" id="78Y-2R-bi0"/>
                 <outlet property="startingDatePicker" destination="3GQ-dI-3aQ" id="cMG-2p-sz5"/>
@@ -22,13 +25,13 @@
             <rect key="frame" x="0.0" y="0.0" width="889" height="602"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgZ-cn-hZw">
+                <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="62" horizontalPageScroll="10" verticalLineScroll="62" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgZ-cn-hZw">
                     <rect key="frame" x="456" y="13" width="413" height="569"/>
                     <clipView key="contentView" misplaced="YES" id="jWe-CK-1C7">
                         <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" rowSizeStyle="automatic" viewBased="YES" id="iXN-tT-oic">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="60" rowSizeStyle="automatic" viewBased="YES" id="iXN-tT-oic">
                                 <rect key="frame" x="0.0" y="0.0" width="411" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -45,15 +48,15 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="Fb6-zw-0L6">
-                                                <rect key="frame" x="1" y="1" width="283" height="50"/>
+                                                <rect key="frame" x="1" y="1" width="283" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l9h-yM-MRG">
-                                                        <rect key="frame" x="3" y="3" width="47" height="44"/>
+                                                        <rect key="frame" x="3" y="13" width="47" height="44"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="h87-ur-2oD"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFo-rq-rte">
-                                                        <rect key="frame" x="64" y="3" width="218" height="44"/>
+                                                        <rect key="frame" x="64" y="-2" width="218" height="59"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" id="8YM-l2-skd">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -82,11 +85,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="nKe-pb-Nh1">
-                                                <rect key="frame" x="287" y="1" width="122" height="50"/>
+                                                <rect key="frame" x="287" y="1" width="122" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EQV-Fe-yUd">
-                                                        <rect key="frame" x="1" y="8" width="105" height="34"/>
+                                                        <rect key="frame" x="1" y="18" width="105" height="34"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Vs6-E1-BG2">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -223,7 +226,7 @@
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhU-6z-5PZ">
                     <rect key="frame" x="260" y="248" width="83" height="32"/>
-                    <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6RV-F9-KED">
+                    <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6RV-F9-KED">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -231,6 +234,30 @@
                         <action selector="searchButtonPressed:" target="-2" id="5zT-6y-Yj9"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MsL-ow-qgK">
+                    <rect key="frame" x="128" y="565" width="119" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Address Invalid" id="JUX-Rq-s4L">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-qB-miM">
+                    <rect key="frame" x="100" y="443" width="91" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Radius Invalid" id="xvT-y3-kqU">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFg-fr-KSh">
+                    <rect key="frame" x="266" y="311" width="77" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date Invalid" id="WYb-6Z-U3t">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="516.5" y="470"/>
         </customView>
